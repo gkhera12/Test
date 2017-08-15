@@ -4,8 +4,6 @@ package testapp.android.com.testapplication.remote;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -13,8 +11,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import testapp.android.com.testapplication.model.News;
 import testapp.android.com.testapplication.model.Rows;
+
+/**
+ * Remote Service is used to provide the Retrofit Fit Service.
+ * This service is used to get the feed of data from the url.
+ * Gson is used to convert the Json data into required model.
+ * */
 
 public class RemoteService {
     private static RemoteService sInstance;
@@ -55,6 +58,9 @@ public class RemoteService {
         this.webservice = retrofit.create(NewsApi.class);
     }
 
+    /**
+     * getNews() is used to get the data from the webservice asychronously
+     * */
     public void getNews(final Callback<Rows> newsCallback) {
         Call newsCall = webservice.getNews();
         newsCall.enqueue(new Callback<Rows>() {

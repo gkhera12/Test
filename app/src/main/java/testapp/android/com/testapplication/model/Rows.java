@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Model created from the Json Request
+ * */
 public class Rows {
     @SerializedName("rows")
     @Expose

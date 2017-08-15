@@ -16,6 +16,12 @@ import retrofit2.Response;
 import testapp.android.com.testapplication.model.News;
 import testapp.android.com.testapplication.model.Rows;
 import testapp.android.com.testapplication.remote.RemoteService;
+/**
+ * MainViewModel supports MainActivity by providing data
+ * It creates observables for the data which View can subscribe to listen for data.
+ * mObservableNews is used for reporting NewsData from the webservice.
+ * mObservableError is used for reporting error to the View.
+ * **/
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -23,9 +29,12 @@ public class MainViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<News>> mObservableNews = new MutableLiveData<>();
 
-    public MainViewModel(Application application) {
+    private RemoteService remoteService;
+
+    public MainViewModel(Application application, RemoteService remoteService) {
         super(application);
-        RemoteService.getInstance().getNews(new Callback<Rows>() {
+        this.remoteService = remoteService;
+        remoteService.getNews(new Callback<Rows>() {
             @Override
             public void onResponse(Call<Rows> call, Response<Rows> response) {
                 mObservableNews.setValue(response.body().getRows());
@@ -47,8 +56,11 @@ public class MainViewModel extends AndroidViewModel {
         return mObservableError;
     }
 
+    /**
+     * Used by View to refresh the data from the webservice on swipe.
+     * */
     public void refreshData(){
-        RemoteService.getInstance().getNews(new Callback<Rows>() {
+        remoteService.getNews(new Callback<Rows>() {
             @Override
             public void onResponse(Call<Rows> call, Response<Rows> response) {
                 mObservableNews.setValue(response.body().getRows());
@@ -60,19 +72,22 @@ public class MainViewModel extends AndroidViewModel {
             }
         });
     }
+
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
         @NonNull
         private final Application mApplication;
 
-        public Factory(@NonNull Application application) {
+        private final RemoteService mRemoteService;
+        public Factory(@NonNull Application application, RemoteService remoteService) {
             mApplication = application;
+            mRemoteService = remoteService;
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new MainViewModel(mApplication);
+            return (T) new MainViewModel(mApplication,mRemoteService);
         }
     }
 

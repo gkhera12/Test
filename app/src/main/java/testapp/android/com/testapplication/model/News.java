@@ -4,6 +4,9 @@ package testapp.android.com.testapplication.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Model created from the Json Request
+ * */
 public class News {
     @SerializedName("title")
     @Expose

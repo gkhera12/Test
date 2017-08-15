@@ -20,10 +20,15 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -31,13 +36,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "com.android.support:recyclerview-v7:${rootProject.supportLibVersion}"
-    compile 'android.arch.lifecycle:extensions:' + rootProject.archLifecycleVersion;
-    compile 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion;
-    annotationProcessor "android.arch.lifecycle:compiler:" + rootProject.archLifecycleVersion;
-    annotationProcessor "android.arch.persistence.room:compiler:" + rootProject.archRoomVersion;
+    compile 'android.arch.lifecycle:extensions:' + rootProject.archLifecycleVersion
+    compile 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion
+    annotationProcessor "android.arch.lifecycle:compiler:" + rootProject.archLifecycleVersion
+    annotationProcessor "android.arch.persistence.room:compiler:" + rootProject.archRoomVersion
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
-    compile "com.squareup.retrofit2:converter-gson:2.1.0"
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    implementation 'com.squareup.okhttp3:mockwebserver:3.8.1'
 }

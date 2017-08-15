@@ -36,6 +36,10 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         this.context = context;
     }
 
+    /**
+    * setNewsList is called by View everytime the data is changed by the ViewModel.
+     * It compares the new data with old data and changes the data only if necessary.
+    * */
     public void setNewsList(final List<News> newsList) {
         if (mNewsList == null) {
             mNewsList = newsList;
