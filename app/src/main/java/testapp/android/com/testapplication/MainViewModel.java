@@ -19,12 +19,8 @@ import testapp.android.com.testapplication.remote.RemoteService;
 
 public class MainViewModel extends AndroidViewModel {
 
-    private static final MutableLiveData ABSENT = new MutableLiveData();
+    public MutableLiveData<String> mObservableError = new MutableLiveData<>();
 
-    {
-        //noinspection unchecked
-        ABSENT.setValue(null);
-    }
     private MutableLiveData<List<News>> mObservableNews = new MutableLiveData<>();
 
     public MainViewModel(Application application) {
@@ -33,11 +29,12 @@ public class MainViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Rows> call, Response<Rows> response) {
                 mObservableNews.setValue(response.body().getRows());
+                mObservableError = null;
             }
 
             @Override
             public void onFailure(Call<Rows> call, Throwable t) {
-                mObservableNews = ABSENT;
+                mObservableError.setValue(t.getMessage());
             }
         });
     }
@@ -46,6 +43,23 @@ public class MainViewModel extends AndroidViewModel {
         return mObservableNews;
     }
 
+    public MutableLiveData<String> getError(){
+        return mObservableError;
+    }
+
+    public void refreshData(){
+        RemoteService.getInstance().getNews(new Callback<Rows>() {
+            @Override
+            public void onResponse(Call<Rows> call, Response<Rows> response) {
+                mObservableNews.setValue(response.body().getRows());
+            }
+
+            @Override
+            public void onFailure(Call<Rows> call, Throwable t) {
+                mObservableError.setValue(t.getMessage());
+            }
+        });
+    }
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
         @NonNull
@@ -61,4 +75,6 @@ public class MainViewModel extends AndroidViewModel {
             return (T) new MainViewModel(mApplication);
         }
     }
+
+
 }

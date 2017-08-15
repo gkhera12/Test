@@ -67,7 +67,7 @@ public class RemoteService {
 
             @Override
             public void onFailure(Call<Rows> call, Throwable t) {
-                t.printStackTrace();
+                newsCallback.onFailure(call,t);
             }
 
         });
