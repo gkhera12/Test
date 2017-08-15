@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TestApplication</string>
     <string name="loading_list">Loading list</string>
+    <string name="list_no_title">missing title</string>
 </resources>
