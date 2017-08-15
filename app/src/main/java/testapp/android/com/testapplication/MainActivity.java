@@ -1,20 +1,18 @@
 package testapp.android.com.testapplication;
 
-import android.arch.lifecycle.LifecycleActivity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import testapp.android.com.testapplication.databinding.ActivityMainBinding;
 import testapp.android.com.testapplication.model.News;
 
-public class MainActivity extends LifecycleActivity{
+public class MainActivity extends AppCompatLifecycleActivity {
 
     private ActivityMainBinding mBinding;
     private ListRecyclerViewAdapter listRecyclerViewAdapter;
@@ -26,13 +24,6 @@ public class MainActivity extends LifecycleActivity{
         listRecyclerViewAdapter = new ListRecyclerViewAdapter(this, this);
         mBinding.listView.setAdapter(listRecyclerViewAdapter);
 
-//        List<News> news = new ArrayList<>();
-//        News news1 = new News();
-//        news1.setTitle("My Title");
-//        news1.setDescription("My Description");
-//        news1.setImageHref("https://dummyimage.com/popunder");
-//        news.add(news1);
-//        listRecyclerViewAdapter.setNewsList(news);
         MainViewModel.Factory factory = new MainViewModel.Factory(getApplication());
         final MainViewModel viewModel =
                 ViewModelProviders.of(this, factory).get(MainViewModel.class);
@@ -55,7 +46,7 @@ public class MainActivity extends LifecycleActivity{
     }
 
     public void onListInteraction(News item){
-        if(item.getTitle() == null){
+        if(TextUtils.isEmpty(item.getTitle())){
             setTitle(getResources().getString(R.string.list_no_title));
         }else{
             setTitle(item.getTitle());
