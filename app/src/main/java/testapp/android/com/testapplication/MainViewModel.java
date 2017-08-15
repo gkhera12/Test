@@ -38,7 +38,6 @@ public class MainViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Rows> call, Response<Rows> response) {
                 mObservableNews.setValue(response.body().getRows());
-                mObservableError = null;
             }
 
             @Override
