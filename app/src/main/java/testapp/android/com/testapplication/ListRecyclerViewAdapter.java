@@ -83,7 +83,9 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         holder.titleView.setText(mNewsList.get(position).getTitle());
         holder.descriptionView.setText(mNewsList.get(position).getDescription());
         String imageUrl = mNewsList.get(position).getImageHref();
-        Picasso.with(context).load(imageUrl).into(holder.imageView);
+        if(imageUrl != null) {
+            Picasso.with(context).load(imageUrl).into(holder.imageView);
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

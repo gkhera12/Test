@@ -26,13 +26,13 @@ public class MainActivity extends LifecycleActivity{
         listRecyclerViewAdapter = new ListRecyclerViewAdapter(this, this);
         mBinding.listView.setAdapter(listRecyclerViewAdapter);
 
-        List<News> news = new ArrayList<>();
-        News news1 = new News();
-        news1.setTitle("My Title");
-        news1.setDescription("My Description");
-        news1.setImageHref("https://dummyimage.com/popunder");
-        news.add(news1);
-        listRecyclerViewAdapter.setNewsList(news);
+//        List<News> news = new ArrayList<>();
+//        News news1 = new News();
+//        news1.setTitle("My Title");
+//        news1.setDescription("My Description");
+//        news1.setImageHref("https://dummyimage.com/popunder");
+//        news.add(news1);
+//        listRecyclerViewAdapter.setNewsList(news);
         MainViewModel.Factory factory = new MainViewModel.Factory(getApplication());
         final MainViewModel viewModel =
                 ViewModelProviders.of(this, factory).get(MainViewModel.class);
