@@ -32,6 +32,4 @@ ext {
     archLifecycleVersion = "1.0.0-alpha1"
     archRoomVersion = "1.0.0-alpha1"
     retrofit_version = "2.3.0"
-    runnerVersion = "1.0.0"
-    rulesVersion = "1.0.0"
 }

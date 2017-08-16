@@ -25,7 +25,7 @@ import testapp.android.com.testapplication.remote.RemoteService;
 
 public class MainViewModel extends AndroidViewModel {
 
-    public MutableLiveData<String> mObservableError = new MutableLiveData<>();
+    private MutableLiveData<String> mObservableError = new MutableLiveData<>();
 
     private MutableLiveData<List<News>> mObservableNews = new MutableLiveData<>();
 
